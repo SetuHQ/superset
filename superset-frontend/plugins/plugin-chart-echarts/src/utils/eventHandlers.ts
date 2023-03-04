@@ -86,8 +86,12 @@ export const clickEventHandler =
     ) => ContextMenuFilters['crossFilter'],
     setDataMask: (dataMask: DataMask) => void,
     emitCrossFilters?: boolean,
+    formData?: any,
   ) =>
   ({ name }: { name: string }) => {
+    if (formData && formData.onClickRedirection) {
+      onChartClickRedirectionHandler(formData.onClickRedirection, name);
+    }
     if (!emitCrossFilters) {
       return;
     }
@@ -140,12 +144,14 @@ export const allEventHandlers = (
     labelMap,
     emitCrossFilters,
     selectedValues,
+    formData,
   } = transformedProps;
   const eventHandlers: EventHandlers = {
     click: clickEventHandler(
       getCrossFilterDataMask(selectedValues, groupby, labelMap),
       setDataMask,
       emitCrossFilters,
+      formData,
     ),
     contextmenu: contextMenuEventHandler(
       groupby,
@@ -156,3 +162,19 @@ export const allEventHandlers = (
   };
   return eventHandlers;
 };
+
+function onChartClickRedirectionHandler(
+  onClickRedirection: string,
+  values: string | string[],
+) {
+  if (typeof values == 'string') {
+    values = [values];
+  }
+  if (onClickRedirection) {
+    const url = onClickRedirection.replaceAll(
+      '{{key}}',
+      encodeURIComponent(values.join(',')),
+    );
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+}
