@@ -163,11 +163,11 @@ export const allEventHandlers = (
   return eventHandlers;
 };
 
-function onChartClickRedirectionHandler(
+export function onChartClickRedirectionHandler(
   onClickRedirection: string,
   values: string | string[],
 ) {
-  if (typeof values == 'string') {
+  if (!Array.isArray(values)) {
     values = [values];
   }
   if (onClickRedirection) {
