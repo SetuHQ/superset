@@ -17,7 +17,6 @@
  * under the License.
  */
 import { t, smartDateFormatter, NumberFormats } from '@superset-ui/core';
-import { CustomControlItem } from '../types';
 
 // D3 specific formatting config
 export const D3_FORMAT_DOCS = t(
@@ -71,16 +70,3 @@ export const D3_TIME_FORMAT_OPTIONS: [string, string][] = [
 
 export const DEFAULT_NUMBER_FORMAT = D3_FORMAT_OPTIONS[0][0];
 export const DEFAULT_TIME_FORMAT = D3_TIME_FORMAT_OPTIONS[0][0];
-
-
-export const onClickHandlerChartInput: CustomControlItem = {
-  name: 'on_click_redirection',
-  config: {
-    type: 'TextControl',
-    label: t('On Click Redirection'),
-    renderTrigger: false,
-    clearable: true,
-    default: '',
-    description: t('// todo'),
-  },
-};

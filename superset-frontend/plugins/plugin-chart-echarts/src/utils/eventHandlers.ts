@@ -20,9 +20,9 @@ import {
   BinaryQueryObjectFilterClause,
   ContextMenuFilters,
   DataMask,
-  onChartClickRedirectionHandler,
   QueryFormColumn,
 } from '@superset-ui/core';
+import { onChartClickRedirectionHandler } from '@superset-ui/chart-controls';
 import {
   BaseTransformedProps,
   CrossFilterTransformedProps,

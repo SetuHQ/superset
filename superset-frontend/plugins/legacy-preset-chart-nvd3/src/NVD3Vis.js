@@ -30,9 +30,9 @@ import {
   isDefined,
   NumberFormats,
   smartDateVerboseFormatter,
-  t,
-  onChartClickRedirectionHandler
+  t
 } from '@superset-ui/core';
+import { onChartClickRedirectionHandler } from '@superset-ui/chart-controls';
 
 import 'nvd3-fork/build/nv.d3.css';
 
