@@ -31,6 +31,7 @@ import {
   NumberFormats,
   smartDateVerboseFormatter,
   t,
+  onChartClickRedirectionHandler
 } from '@superset-ui/core';
 
 import 'nvd3-fork/build/nv.d3.css';
@@ -576,12 +577,7 @@ function nvd3Vis(element, props) {
       if (eventDispatcher && eventDispatcher.on) {
         eventDispatcher.on('elementClick', function (e) {
           if (e.data.key) {
-            const key = Array.isArray(e.data.key) ? e.data.key : [e.data.key]
-            const url = props.onClickRedirection.replaceAll(
-              '{{key}}',
-              encodeURIComponent(key.join(',')),
-            );
-            window.open(url, '_blank', 'noopener,noreferrer');
+            onChartClickRedirectionHandler(props.onClickRedirection,e.data.key)
           }
         });
       }

@@ -21,6 +21,7 @@ import {
   DTTM_ALIAS,
   BinaryQueryObjectFilterClause,
   AxisType,
+  onChartClickRedirectionHandler,
 } from '@superset-ui/core';
 import { ViewRootGroup } from 'echarts/types/src/util/types';
 import GlobalModel from 'echarts/types/src/model/Global';
@@ -30,7 +31,6 @@ import Echart from '../components/Echart';
 import { TimeseriesChartTransformedProps } from './types';
 import { currentSeries } from '../utils/series';
 import { ExtraControls } from '../components/ExtraControls';
-import { onChartClickRedirectionHandler } from '../utils/eventHandlers';
 
 const TIMER_DURATION = 300;
 
