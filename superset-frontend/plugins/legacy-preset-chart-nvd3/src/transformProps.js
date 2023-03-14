@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+/* eslint-disable prefer-const */
 import isTruthy from './utils/isTruthy';
 import {
   tokenizeToNumericArray,
@@ -107,7 +108,7 @@ export default function transformProps(chartProps) {
     ranges,
     yAxisFormat,
     yAxis2Format,
-    onClickRedirection
+    onClickRedirection,
   } = formData;
 
   const rawData = queriesData[0].data || [];

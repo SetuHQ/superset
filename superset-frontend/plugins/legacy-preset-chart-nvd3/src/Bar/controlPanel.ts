@@ -22,7 +22,7 @@ import {
   getStandardizedControls,
   sections,
   sharedControls,
-  onClickHandlerChartInput
+  onClickHandlerChartInput,
 } from '@superset-ui/chart-controls';
 import {
   lineInterpolation,

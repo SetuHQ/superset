@@ -25,12 +25,12 @@ import {
 import { ViewRootGroup } from 'echarts/types/src/util/types';
 import GlobalModel from 'echarts/types/src/model/Global';
 import ComponentModel from 'echarts/types/src/model/Component';
+import { onChartClickRedirectionHandler } from '@superset-ui/chart-controls';
 import { EchartsHandler, EventHandlers } from '../types';
 import Echart from '../components/Echart';
 import { TimeseriesChartTransformedProps } from './types';
 import { currentSeries } from '../utils/series';
 import { ExtraControls } from '../components/ExtraControls';
-import { onChartClickRedirectionHandler } from '@superset-ui/chart-controls';
 
 const TIMER_DURATION = 300;
 
@@ -170,8 +170,7 @@ export default function EchartsTimeseries({
       clickTimer.current = setTimeout(() => {
         const { seriesName: name } = props;
         handleChange(name);
-        onChartClickRedirectionHandler(formData.onClickRedirection, name)
-        
+        onChartClickRedirectionHandler(formData.onClickRedirection, name);
       }, TIMER_DURATION);
     },
     mouseout: () => {

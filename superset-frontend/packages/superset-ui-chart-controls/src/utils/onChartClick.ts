@@ -36,13 +36,14 @@ export function onChartClickRedirectionHandler(
   onClickRedirection: string,
   values: string | string[],
 ) {
-  if (!Array.isArray(values)) {
-    values = [values];
+  let localValues = values;
+  if (!Array.isArray(localValues)) {
+    localValues = [localValues];
   }
   if (onClickRedirection) {
     const url = onClickRedirection.replaceAll(
       '{{key}}',
-      encodeURIComponent(values.join(',')),
+      encodeURIComponent(localValues.join(',')),
     );
     window.open(url, '_blank', 'noopener,noreferrer');
   }

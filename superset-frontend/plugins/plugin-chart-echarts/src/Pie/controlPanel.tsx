@@ -27,7 +27,7 @@ import {
   D3_TIME_FORMAT_OPTIONS,
   sections,
   getStandardizedControls,
-  onClickHandlerChartInput
+  onClickHandlerChartInput,
 } from '@superset-ui/chart-controls';
 import { DEFAULT_FORM_DATA } from './types';
 import { legendSection } from '../controls';

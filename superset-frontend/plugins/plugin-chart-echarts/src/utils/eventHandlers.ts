@@ -90,7 +90,7 @@ export const clickEventHandler =
     formData?: any,
   ) =>
   ({ name }: { name: string }) => {
-    if (formData && formData.onClickRedirection) {
+    if (formData?.onClickRedirection) {
       onChartClickRedirectionHandler(formData.onClickRedirection, name);
     }
     if (!emitCrossFilters) {
@@ -163,4 +163,3 @@ export const allEventHandlers = (
   };
   return eventHandlers;
 };
-

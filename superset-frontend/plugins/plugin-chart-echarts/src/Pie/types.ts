@@ -45,7 +45,7 @@ export type EchartsPieFormData = QueryFormData &
     numberFormat: string;
     dateFormat: string;
     showLabelsThreshold: number;
-    onClickRedirection?: string
+    onClickRedirection?: string;
   };
 
 export enum EchartsPieLabelType {
