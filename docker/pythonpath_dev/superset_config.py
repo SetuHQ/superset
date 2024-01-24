@@ -107,6 +107,17 @@ WEBDRIVER_BASEURL = "http://superset:8088/"
 WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 SLACK_API_TOKEN = get_env_variable("SLACK_API_TOKEN")
 
+# Email configuration
+SMTP_HOST = "smtp.gmail.com" # change to your host
+SMTP_PORT = 587 # your port, e.g. 587
+SMTP_STARTTLS = True
+SMTP_SSL_SERVER_AUTH = True # If your using an SMTP server with a valid certificate
+SMTP_SSL = False
+SMTP_USER = get_env_variable("SMTP_USER") # use the empty string "" if using an unauthenticated SMTP server
+SMTP_PASSWORD = get_env_variable("SMTP_PASSWORD") # use the empty string "" if using an unauthenticated SMTP server
+SMTP_MAIL_FROM = get_env_variable("SMTP_MAIL_FROM")
+EMAIL_REPORTS_SUBJECT_PREFIX = "[Superset] " # optional - overwrites default value in config.py of "[Report] "
+
 SQLLAB_CTAS_NO_LIMIT = True
 
 #
