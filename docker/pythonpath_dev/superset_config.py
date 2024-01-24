@@ -108,11 +108,11 @@ WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
 SLACK_API_TOKEN = get_env_variable("SLACK_API_TOKEN")
 
 # Email configuration
-SMTP_HOST = "smtp.gmail.com" # change to your host
-SMTP_PORT = 587 # your port, e.g. 587
-SMTP_STARTTLS = True
-SMTP_SSL_SERVER_AUTH = True # If your using an SMTP server with a valid certificate
-SMTP_SSL = False
+SMTP_HOST = get_env_variable("SMTP_HOST") # change to your host
+SMTP_PORT = int(get_env_variable("SMTP_PORT")) # your port, e.g. 587
+SMTP_STARTTLS = bool(get_env_variable("SMTP_STARTTLS"))
+SMTP_SSL_SERVER_AUTH = bool(get_env_variable("SMTP_SSL_SERVER_AUTH")) # If your using an SMTP server with a valid certificate
+SMTP_SSL = bool(get_env_variable("SMTP_SSL"))
 SMTP_USER = get_env_variable("SMTP_USER") # use the empty string "" if using an unauthenticated SMTP server
 SMTP_PASSWORD = get_env_variable("SMTP_PASSWORD") # use the empty string "" if using an unauthenticated SMTP server
 SMTP_MAIL_FROM = get_env_variable("SMTP_MAIL_FROM")
