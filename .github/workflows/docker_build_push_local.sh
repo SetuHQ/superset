@@ -22,6 +22,7 @@ REPO_NAME="setusuraj/superset"
 
 
 REFSPEC="2.0.7"
+REFSPEC="2.0.8"
 LATEST_TAG="latest"
 
 cat<<EOF
@@ -36,6 +37,7 @@ EOF
 docker build --target lean \
   -t "${REPO_NAME}:${REFSPEC}" \
   -t "${REPO_NAME}:${LATEST_TAG}" \
+  --platform=linux/amd64 \
   --build-arg PY_VER="3.8-slim"\
   --label "built_at=$(date)" \
   --label "target=lean" \
@@ -47,6 +49,7 @@ docker build --target lean \
 docker build --target lean \
   -t "${REPO_NAME}:${REFSPEC}-py39" \
   -t "${REPO_NAME}:${LATEST_TAG}-py39" \
+  --platform=linux/amd64 \
   --build-arg PY_VER="3.9-slim"\
   --label "built_at=$(date)" \
   --label "target=lean39" \
@@ -58,6 +61,7 @@ docker build --target lean \
 docker build \
   -t "${REPO_NAME}:${REFSPEC}-websocket" \
   -t "${REPO_NAME}:${LATEST_TAG}-websocket" \
+  --platform=linux/amd64 \
   --label "built_at=$(date)" \
   --label "target=websocket" \
   superset-websocket
@@ -68,6 +72,7 @@ docker build \
 docker build --target dev \
   -t "${REPO_NAME}:${REFSPEC}-dev" \
   -t "${REPO_NAME}:${LATEST_TAG}-dev" \
+  --platform=linux/amd64 \
   --label "built_at=$(date)" \
   --label "target=dev" \
   .
