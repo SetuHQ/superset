@@ -55,17 +55,17 @@ ENV LANG=C.UTF-8 \
     SUPERSET_PORT=8088
 
 RUN mkdir -p ${PYTHONPATH} \
-        && useradd --user-group -d ${SUPERSET_HOME} -m --no-log-init --shell /bin/bash superset \
-        && apt-get update -y \
-        && apt-get install -y --no-install-recommends \
-            build-essential \
-            curl \
-            default-libmysqlclient-dev \
-            libsasl2-dev \
-            libsasl2-modules-gssapi-mit \
-            libpq-dev \
-            libecpg-dev \
-        && rm -rf /var/lib/apt/lists/*
+    && useradd --user-group -d ${SUPERSET_HOME} -m --no-log-init --shell /bin/bash superset \
+    && apt-get update -y \
+    && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    default-libmysqlclient-dev \
+    libsasl2-dev \
+    libsasl2-modules-gssapi-mit \
+    libpq-dev \
+    libecpg-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements/*.txt  /app/requirements/
 COPY setup.py MANIFEST.in README.md /app/
@@ -73,10 +73,12 @@ COPY setup.py MANIFEST.in README.md /app/
 # setup.py uses the version information in package.json
 COPY superset-frontend/package.json /app/superset-frontend/
 
+RUN pip install uv
+
 RUN cd /app \
     && mkdir -p superset/static \
     && touch superset/static/version_info.json \
-    && pip install --no-cache -r requirements/local.txt
+    && uv pip install --system --no-cache -r requirements/local.txt
 
 COPY --from=superset-node /app/superset/static/assets /app/superset/static/assets
 
@@ -84,9 +86,27 @@ COPY --from=superset-node /app/superset/static/assets /app/superset/static/asset
 COPY superset /app/superset
 COPY setup.py MANIFEST.in README.md /app/
 RUN cd /app \
-        && chown -R superset:superset * \
-        && pip install -e . \
-        && flask fab babel-compile --target superset/translations
+    && chown -R superset:superset * \
+    && uv pip install --system -e . \
+    && flask fab babel-compile --target superset/translations
+
+RUN uv pip install --system --no-cache \
+    sqlean.py==3.45.1 \
+    requests==2.28.2 \
+    psycopg2 \
+    mysqlclient \
+    shillelagh[gsheetsapi] \
+    PyDynamoDB>=0.4.2 \
+    pybigquery \
+    PyAthena==2.15.0 \
+    authlib==1.2.0 \
+    clickhouse-connect>=0.4.1 \
+    elasticsearch==7.13.4 \
+    elasticsearch-dbapi==0.2.5 \
+    duckdb \
+    duckdb-engine \
+    gevent>=1.4
+
 
 COPY ./docker/run-server.sh /usr/bin/
 
@@ -127,10 +147,31 @@ RUN wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/${FIREF
     tar xvf /opt/firefox.tar.bz2 -C /opt && \
     ln -s /opt/firefox/firefox /usr/local/bin/firefox
 
+RUN pip install uv
+
 # Cache everything for dev purposes...
 RUN cd /app \
-    && pip install --no-cache -r requirements/docker.txt \
-    && pip install --no-cache -r requirements/requirements-local.txt || true
+    && uv pip install --system --no-cache -r requirements/docker.txt \
+    && uv pip install --system --no-cache -r requirements/requirements-local.txt || true
+
+
+RUN uv pip install --system --no-cache \
+    sqlean.py==3.45.1 \
+    requests==2.28.2 \
+    psycopg2 \
+    mysqlclient \
+    shillelagh[gsheetsapi] \
+    PyDynamoDB>=0.4.2 \
+    pybigquery \
+    PyAthena==2.15.0 \
+    authlib==1.2.0 \
+    clickhouse-connect>=0.4.1 \
+    elasticsearch==7.13.4 \
+    elasticsearch-dbapi==0.2.5 \
+    duckdb \
+    duckdb-engine \
+    gevent>=1.4
+
 USER superset
 
 
