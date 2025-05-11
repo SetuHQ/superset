@@ -552,9 +552,9 @@ IS_FEATURE_ENABLED_FUNC: Optional[Callable[[str, Optional[bool]], bool]] = None
 #
 # Takes as a parameter the common bootstrap payload before transformations.
 # Returns a dict containing data that should be added or overridden to the payload.
-COMMON_BOOTSTRAP_OVERRIDES_FUNC: Callable[
-    [Dict[str, Any]], Dict[str, Any]
-] = lambda data: {}  # default: empty dict
+COMMON_BOOTSTRAP_OVERRIDES_FUNC: Callable[[Dict[str, Any]], Dict[str, Any]] = (
+    lambda data: {}
+)  # default: empty dict
 
 # EXTRA_CATEGORICAL_COLOR_SCHEMES is used for adding custom categorical color schemes
 # example code for "My custom warm to hot" color scheme
@@ -1039,9 +1039,9 @@ UPLOADED_CSV_HIVE_NAMESPACE: Optional[str] = None
 
 # mypy doesn't catch that if case ensures list content being always str
 ALLOWED_USER_CSV_SCHEMA_FUNC: Callable[[Database, models.User], List[str]] = (
-    lambda database, user: [UPLOADED_CSV_HIVE_NAMESPACE]
-    if UPLOADED_CSV_HIVE_NAMESPACE
-    else []
+    lambda database, user: (
+        [UPLOADED_CSV_HIVE_NAMESPACE] if UPLOADED_CSV_HIVE_NAMESPACE else []
+    )
 )
 
 # Values that should be treated as nulls for the csv uploads.
@@ -1204,6 +1204,7 @@ def SQL_QUERY_MUTATOR(  # pylint: disable=invalid-name,unused-argument
 # functionality for both the SQL_Lab and Charts.
 MUTATE_AFTER_SPLIT = False
 
+
 # This allows for a user to add header data to any outgoing emails. For example,
 # if you need to include metadata in the header or you want to change the specifications
 # of the email title, header, or sender.
@@ -1306,9 +1307,11 @@ WEBDRIVER_CONFIGURATION: Dict[Any, Any] = {"service_log_path": "/dev/null"}
 WEBDRIVER_OPTION_ARGS = ["--headless", "--marionette"]
 
 # The base URL to query for accessing the user interface
-WEBDRIVER_BASEURL = "http://0.0.0.0:8080/"
+WEBDRIVER_BASEURL = os.environ.get("WEBDRIVER_BASEURL", "http://0.0.0.0:8080/")
 # The base URL for the email report hyperlinks.
-WEBDRIVER_BASEURL_USER_FRIENDLY = WEBDRIVER_BASEURL
+WEBDRIVER_BASEURL_USER_FRIENDLY = os.environ.get(
+    "WEBDRIVER_BASEURL_USER_FRIENDLY", WEBDRIVER_BASEURL
+)
 # Time selenium will wait for the page to load and render for the email report.
 EMAIL_PAGE_RENDER_WAIT = int(timedelta(seconds=30).total_seconds())
 
@@ -1441,9 +1444,9 @@ GLOBAL_ASYNC_QUERIES_REDIS_STREAM_LIMIT = 1000
 GLOBAL_ASYNC_QUERIES_REDIS_STREAM_LIMIT_FIREHOSE = 1000000
 GLOBAL_ASYNC_QUERIES_JWT_COOKIE_NAME = "async-token"
 GLOBAL_ASYNC_QUERIES_JWT_COOKIE_SECURE = False
-GLOBAL_ASYNC_QUERIES_JWT_COOKIE_SAMESITE: Optional[
-    Literal["None", "Lax", "Strict"]
-] = None
+GLOBAL_ASYNC_QUERIES_JWT_COOKIE_SAMESITE: Optional[Literal["None", "Lax", "Strict"]] = (
+    None
+)
 GLOBAL_ASYNC_QUERIES_JWT_COOKIE_DOMAIN = None
 GLOBAL_ASYNC_QUERIES_JWT_SECRET = "test-secret-change-me"
 GLOBAL_ASYNC_QUERIES_TRANSPORT = "polling"
